@@ -1,6 +1,11 @@
 [package]
 name = "imgcore"
 version = "0.1.0"
+authors = ["bensatlantik"]
 edition = "2021"
+license = "MIT"
+description = "A beginner-friendly, lightweight Rust library for basic image manipulation."
+repository = "https://github.com/bensatlantik/imgcore"
 
 [dependencies]
+image = "0.24"  # Ensures we can load, save, resize, crop images
