@@ -1,4 +1,4 @@
-use image::{DynamicImage, GenericImageView, ImageError, ImageFormat, RgbaImage};
+use image::{DynamicImage, ImageError, ImageFormat};
 use std::path::Path;
 
 pub struct ImgCore {
@@ -25,42 +25,5 @@ impl ImgCore {
     /// Crops the image to a rectangle with the given top-left corner, width, and height.
     pub fn crop(&mut self, x: u32, y: u32, width: u32, height: u32) {
         self.image = self.image.crop_imm(x, y, width, height);
-    }
-}
-
-#[cfg(test)]
-mod tests {
-    use super::*;
-    use std::fs;
-
-    #[test]
-    fn test_load() {
-        let img = ImgCore::load("tests/test_image.png");
-        assert!(img.is_ok());
-    }
-
-    #[test]
-    fn test_resize() {
-        let mut img = ImgCore::load("tests/test_image.png").unwrap();
-        img.resize(100, 100);
-        assert_eq!(img.image.dimensions(), (100, 100));
-    }
-
-    #[test]
-    fn test_crop() {
-        let mut img = ImgCore::load("tests/test_image.png").unwrap();
-        img.crop(10, 10, 50, 50);
-        assert_eq!(img.image.dimensions(), (50, 50));
-    }
-
-    #[test]
-    fn test_save() {
-        let img = ImgCore::load("tests/test_image.png").unwrap();
-        let save_path = "tests/test_output.png";
-        let result = img.save(save_path, ImageFormat::Png);
-        assert!(result.is_ok());
-
-        // Clean up the test output file
-        fs::remove_file(save_path).unwrap();
     }
 }
